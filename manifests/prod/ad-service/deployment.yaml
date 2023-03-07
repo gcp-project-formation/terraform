@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adservice
+  namespace: prod
+  labels:
+    app: adservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adservice
+  template:
+    metadata:
+      labels:
+        app: adservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: AD_SERVICE_PORT
+          image: gcr.io/formationgcp/prod/ad-service:latest
+          imagePullPolicy: Always
+          name: adservice
+          ports:
+            - containerPort: 9555
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

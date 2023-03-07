@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currencyservice
+  namespace: prod
+  labels:
+    app: currencyservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currencyservice
+  template:
+    metadata:
+      labels:
+        app: currencyservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: CURRENCY_SERVICE_PORT
+          image: gcr.io/formationgcp/prod/currency-service:latest
+          imagePullPolicy: Always
+          name: currencyservice
+          ports:
+            - containerPort: 7000
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

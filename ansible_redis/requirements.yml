@@ -1,0 +1,4 @@
+# from github
+- src: https://github.com/geerlingguy/ansible-role-redis.git
+  version: master
+  name: geerlingguy.redis

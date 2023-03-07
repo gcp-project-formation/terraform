@@ -1,0 +1,13 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: emailservice
+  namespace: prod
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: emailservice
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 60

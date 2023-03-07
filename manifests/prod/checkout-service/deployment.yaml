@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkoutservice
+  namespace: prod
+  labels:
+    app: checkoutservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkoutservice
+  template:
+    metadata:
+      labels:
+        app: checkoutservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: PRODUCT_CATALOG_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: PRODUCT_CATALOG_SERVICE_ADDR
+            - name: SHIPPING_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: SHIPPING_SERVICE_ADDR
+            - name: CART_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: CART_SERVICE_ADDR
+            - name: CURRENCY_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: CURRENCY_SERVICE_ADDR
+            - name: EMAIL_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: EMAIL_SERVICE_ADDR
+            - name: PAYMENT_SERVICE_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: PAYMENT_SERVICE_ADDR
+          image: gcr.io/formationgcp/prod/checkout-service:latest
+          imagePullPolicy: Always
+          name: checkoutservice
+          ports:
+            - containerPort: 5050
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

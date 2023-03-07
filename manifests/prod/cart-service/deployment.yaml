@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cartservice
+  namespace: prod
+  labels:
+    app: cartservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cartservice
+  template:
+    metadata:
+      labels:
+        app: cartservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: REDIS_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: REDIS_ADDR
+          image: gcr.io/formationgcp/prod/cart-service:latest
+          imagePullPolicy: Always
+          name: cartservice
+          ports:
+            - containerPort: 7070
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

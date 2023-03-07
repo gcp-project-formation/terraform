@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendationservice
+  namespace: prod
+  labels:
+    app: recommendationservice
+spec:
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: recommendationservice

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgenerator
+  namespace: prod
+  labels:
+    app: loadgenerator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loadgenerator
+  template:
+    metadata:
+      labels:
+        app: loadgenerator
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+          image: gcr.io/formationgcp/prod/load-generator:latest
+          imagePullPolicy: Always
+          name: loadgenerator
+          ports:
+            - containerPort: 8085
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

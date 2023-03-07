@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prod-config-map
+  namespace: prod
+  labels:
+    app: prod-config-map
+data:
+  AD_SERVICE_PORT: "9555"
+  REDIS_ADDR: "redis:6379"
+  PRODUCT_CATALOG_SERVICE_ADDR: "productcatalogservice:3550"
+  SHIPPING_SERVICE_ADDR: "shippingservice:50051"
+  CART_SERVICE_ADDR: "cartservice:7070"
+  CURRENCY_SERVICE_ADDR: "currencyservice:7000"
+  EMAIL_SERVICE_ADDR: "emailservice:5000"
+  PAYMENT_SERVICE_ADDR: "paymentservice:50052"
+  CURRENCY_SERVICE_PORT: "7000"
+  EMAIL_SERVICE_PORT: "8080"
+  CHECKOUT_SERVICE_ADDR: "checkoutservice:5050"
+  RECOMMENDATION_SERVICE_ADDR: "recommendationservice:8080"
+  AD_SERVICE_ADDR: "adservice:9555"
+  FRONTEND_PORT: "8080"
+  PAYMENT_SERVICE_PORT: "50051"
+  PRODUCT_CATALOG_SERVICE_PORT: "3550"
+  RECOMMENDATION_PORT: "8080"
+  SHIPPING_SERVICE_PORT: "50051"

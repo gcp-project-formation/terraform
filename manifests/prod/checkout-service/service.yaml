@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkoutservice
+  namespace: prod
+  labels:
+    app: checkoutservice
+spec:
+  ports:
+    - name: "5050"
+      port: 5050
+      targetPort: 5050
+  type: ClusterIP
+  selector:
+    app: checkoutservice

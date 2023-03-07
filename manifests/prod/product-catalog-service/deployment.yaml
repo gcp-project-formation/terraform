@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productcatalogservice
+  namespace: prod
+  labels:
+    app: productcatalogservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productcatalogservice
+  template:
+    metadata:
+      labels:
+        app: productcatalogservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: PRODUCT_CATALOG_SERVICE_PORT
+          image: gcr.io/formationgcp/prod/product-catalog-service:latest
+          imagePullPolicy: Always
+          name: productcatalogservice
+          ports:
+            - containerPort: 3550
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

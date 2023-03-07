@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentservice
+  namespace: prod
+  labels:
+    app: paymentservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentservice
+  template:
+    metadata:
+      labels:
+        app: paymentservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: PAYMENT_SERVICE_PORT
+          image: gcr.io/formationgcp/prod/payment-service:latest
+          imagePullPolicy: Always
+          name: paymentservice
+          ports:
+            - containerPort: 50051
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}

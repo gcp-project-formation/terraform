@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shippingservice
+  namespace: prod
+  labels:
+    app: shippingservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shippingservice
+  template:
+    metadata:
+      labels:
+        app: shippingservice
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/Paris
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config-map
+                  key: SHIPPING_SERVICE_PORT
+          image: gcr.io/formationgcp/prod/shipping-service:latest
+          imagePullPolicy: Always
+          name: shippingservice
+          ports:
+            - containerPort: 50051
+          resources:
+            {}
+            # requests:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+            # limits:
+            #   cpu: "100m"
+            #   memory: "512Mi"
+          stdin: true
+          tty: true
+      securityContext:
+        runAsUser: 0
+      serviceAccountName: ""
+status: {}
