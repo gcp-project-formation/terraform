@@ -65,11 +65,11 @@ Dans votre script, Il faudra aussi mettre en place une surveillance de votre ins
 - De créer un dashboard mettant en avant les éléments de surveillance que vous jugerez nécessaires (que vous justifierez),
 - Ainsi que des alertes rattachées (par mail) aux éléments de surveillance (comme par exemple CPU, Stockage, trafics entrant).
 
-###### Ansible :
+    ###### Ansible :
 
-Le lancement d’Ansible sera exécuté à partir de Terraform.
+    Le lancement d’Ansible sera exécuté à partir de Terraform.
 
-Avec Ansible, vous définirez les étapes nécessaires à l’installation de Redis dans votre instance.
+    Avec Ansible, vous définirez les étapes nécessaires à l’installation de Redis dans votre instance.
 
 ###### Etape 2 :
 
