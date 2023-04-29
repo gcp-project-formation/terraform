@@ -111,3 +111,5 @@ Pour votre Cluster, vous aurez besoin des informations suivantes :
 - Chaque Deployment sera configuré pour garantir la haute disponibilité de ses ressources avec au minimum 1 pod et maximum 3 pods avec comme seuil une consommation CPU moyenne de 70% (N’hésitez pas à tester son fonctionnement : stress test)
 - Il faudra aussi mettre en place la communication entre votre Cluster Kubernetes et le serveur de donnée Redis (donnée en cache).
 - Il faudra aussi mettre en place un outil de monitoring comme Prometheus associé avec Grafana pour la partie UI pour votre Cluster Kubernetes. Pour vous aider, n’hésitez pas à lancer et analyser le Docker-Compose.yaml. Il vous fournira des informations importantes.
+
+[@Magafire accout](https://github.com/Magafire)
